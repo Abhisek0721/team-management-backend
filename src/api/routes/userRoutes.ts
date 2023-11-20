@@ -10,6 +10,8 @@ router.route("/").get(userController.getAllUsers);
 
 router.route("/search-user/:username").get(userController.searchUser);
 
+router.route("/filter-users/:pageNumber").get(userController.filterUsers);
+
 router.route("/:id").put(userController.updateUser);
 
 router.route("/:id").delete(userController.deleteUser);

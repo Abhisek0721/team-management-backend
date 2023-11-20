@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/userModel";
 import UserModelInterface from "../interfaces/userModelInterface";
+import { getUserFilterQuery } from "../../utils/getFilterQueries";
 
 class UserController {
   //API : /api/users
@@ -153,6 +154,50 @@ class UserController {
 
         return res.status(200).json({
             status: true,
+            data: userData
+        });
+      } catch (error:any) {
+        console.log("Hello")
+          return res.status(500).json({
+              status: false,
+              message: "Technical Server Error!",
+              error: error?.message
+            });
+      }
+    }
+
+
+    //API : /api/users/filter-users/:pageNumber?domain={domainName}&gender={male/female}&available={yes/no}
+    //Method : GET
+    //Access : Public
+    //Description : get users data by filters like domain, gender and available
+    filterUsers = async (req:Request, res:Response) => {
+      try {
+        let {domain, gender, available} = req.query;
+        const pageNumber = Number(req.params?.pageNumber);
+
+        if(!(domain || gender || available)) {
+          return res.status(400).json({
+            status: false,
+            message: "Query parameters are missing!"
+          });
+        }
+
+        const queryInput = getUserFilterQuery(gender, domain, available);
+
+        const userData = await User.find(
+          queryInput,
+          {},
+          {
+            skip: pageNumber*20,
+            limit: 20
+          }
+        );
+        const totalUsers = await User.countDocuments(queryInput);
+
+        return res.status(200).json({
+            status: true,
+            totalUsers: totalUsers,
             data: userData
         });
       } catch (error:any) {
