@@ -129,7 +129,7 @@ class TeamController {
         {},
         {
           skip: skipFrom,
-          limit: 20,
+          // limit: 20,
         }
       );
 
