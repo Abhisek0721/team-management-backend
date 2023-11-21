@@ -43,10 +43,16 @@ class UserController {
           .json({ status: false, message: "Email already exist!" });
       }
 
-      let user = new User({
+      const user = new User({
         first_name: first_name,
         last_name: last_name,
-        available: available,
+        available: (()=>{
+          if(available === "Yes"){
+            return true;
+          }else{
+            return false;
+          }
+        })(),
         avatar: avatar,
         domain: domain,
         gender: gender,

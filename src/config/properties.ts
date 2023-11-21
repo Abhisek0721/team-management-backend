@@ -12,7 +12,7 @@ interface propertiesInterface {
 
 const properties:propertiesInterface = {
     PORT: Number(process.env.PORT) || 3000,
-    SERVER_URL: process.env.SERVER_URL || `https://authenticator-api-production-8231.up.railway.app`,
+    SERVER_URL: process.env.SERVER_URL || `https://team-management-api.onrender.com`,
     MONGO_URI: process.env.MONGO_URI || 
         `mongodb+srv://abhisekhupa:Abhi07080721@cluster0.cleu6ig.mongodb.net/heliverse`,
     JWT_SECRET: process.env.JWT_SECRET || "jdfjsdkjfdskjhuyu",

@@ -7,7 +7,7 @@ interface UserModelInterface extends Document {
     gender: "Male" | "Female";
     avatar: string;
     domain: string;
-    available: boolean;
+    available: boolean|string;
 }
 
 export default UserModelInterface;
