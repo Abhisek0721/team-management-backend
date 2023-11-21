@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/userModel";
 import Team from "../models/teamModel";
-import TeamModelInterface from "../interfaces/teamModelInterface";
 
 class TeamController {
   //API : /api/team
@@ -17,6 +16,17 @@ class TeamController {
         return res.status(400).json({
           status: false,
           message: "Some fields are missing in payload!",
+        });
+      }
+
+      const checkTeam = await Team.exists({
+        teamName: teamName
+      });
+
+      if(checkTeam){
+        return res.status(400).json({
+          status: false,
+          message: "Team Name already exists!",
         });
       }
 
